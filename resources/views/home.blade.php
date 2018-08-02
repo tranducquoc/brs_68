@@ -1,23 +1,28 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ trans('home.dashboard') }}</div>
 
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
+    <div class="container">
 
-                    {{ trans('home.logged') }}
-                </div>
+        <div class="row">
+            <div class="col-sm-8">
+                {!! Form::text('search', null, ['class' => 'form-control', 'placeholder' =>trans('home.search')]) !!}
+                <h2 class="mt-4">@lang('home.book_list')</h2>
             </div>
         </div>
+
+        <div class="row">
+            @foreach($books as $book)
+            <div class="col-sm-4 my-4">
+                <div class="card">
+                    <a href="{{ route('books.show', $book->id) }}"><img class="card-img-top" src="{{ $book->image }}" alt=""></a>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ $book->title }}</h5>
+                    </div>
+                </div>
+            </div>
+            @endforeach
+
+        </div>
     </div>
-</div>
 @endsection
