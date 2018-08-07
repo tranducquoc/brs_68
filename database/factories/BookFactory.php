@@ -19,6 +19,6 @@ $factory->define(App\Models\Book::class, function (Faker $faker) {
         'title' => $faker->name,
         'author' => $faker->name,
         'description' => 'Sach Framgia',
-        'image' => $faker->image(),
+        'image' => $faker->imageUrl(124, 124, 'fashion', true, 'Faker', false),
     ];
 });

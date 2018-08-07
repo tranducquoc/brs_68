@@ -2,7 +2,7 @@
 @section('content')
     <div class="container">
 
-        <h1 class="mt-4 mb-3">@lang('book.title'):
+        <h1 class="mt-4 mb-3"> @lang('book.title'):
             <small>
                 <a href="#">{{ $book->title }}</a>
             </small>
@@ -29,12 +29,39 @@
         <div class="row">
 
             <div class="col-lg-10">
-                <img class="img-fluid rounded" src="{{ $book->images }}" alt="">
+                <img class="img-fluid rounded" src="{{ $book->image }}" alt="">
                 <hr>
                 <p>@lang('book.author'): {{ $book->author }}</p>
                 <p>@lang('book.description'): {{$book->description}}</p>
 
             </div>
+
+            <div class="container">
+
+                @foreach($book->comments as $comment)
+                    <div class="media mb-4">
+                        <div class="media-body">
+                            <h5 class="mt-0">{{ $comment->user->name }}</h5>
+                            <p>{{ $comment->content }}</p>
+                            <span><small>{{ $comment->created_at }}</small></span>
+                        </div>
+                    </div>
+                @endforeach
+                @if (Auth::check())
+                    <div class="container">
+                        {!! Form::open(['route' => 'comments.store']) !!}
+                            <div class="form-group">
+                                {{ Form::text('content', null, ['class' => 'form-control', 'required', 'placeholder' => trans('comment.push_comment')]) }}
+                                {{ Form::hidden('user_id', Auth::user()->id) }}
+                                {{ Form::hidden('book_id', $book->id) }}
+
+                            </div>
+                            {{ Form::submit(trans('comment.submit'), ['class' => 'btn btn-primary']) }}
+                        {!! Form::close() !!}
+                    </div>
+                @endif
+            </div>
+
         </div>
     </div>
 @endsection
