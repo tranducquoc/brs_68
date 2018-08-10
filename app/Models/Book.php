@@ -12,7 +12,7 @@ class Book extends Model
          'author',
          'description',
          'image',
-     ];
+    ];
 
 
     public function comments()
@@ -27,6 +27,7 @@ class Book extends Model
 
     public function category()
     {
-        return $this->belongto(Category::class);
+        return $this->belongsTo(Category::class);
     }
+
 }

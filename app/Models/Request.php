@@ -17,6 +17,6 @@ class Request extends Model
 
     public function user()
     {
-        return $this->belongto(User::class);
+        return $this->belongsTo(User::class);
     }
 }
