@@ -40,7 +40,11 @@ class CommentController extends Controller
 
     public function update(Request $request, $id)
     {
-        //
+
+        $comment = Comment::where('id', $id)->firstOrFail();
+
+        $comment->save();
+        return redirect()->route('books.show', $book_id);
     }
 
 
