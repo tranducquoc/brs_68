@@ -6,7 +6,17 @@
 
         <div class="row">
             <div class="col-sm-8">
-                {!! Form::text('search', null, ['class' => 'form-control', 'placeholder' =>trans('home.search')]) !!}
+
+                {!! Form::open(['method'=>'GET', 'route'=>'search'])  !!}
+
+                    <div class="input-group custom-search-form">
+                        {!! Form::text('search', null, ['class' => 'form-control', 'placeholder' =>trans('home.search')]) !!}
+                        <span class="input-group-btn">
+                            {!! Form::submit(trans('comment.submit')) !!}
+                        </span>
+                    </div>
+                {!! Form::close() !!}
+
                 <h2 class="mt-4">@lang('home.book_list')</h2>
             </div>
         </div>
