@@ -38,18 +38,55 @@ class CommentController extends Controller
         //
     }
 
+    public function show($id)
+    {
+        //
+    }
+
+    public function create()
+    {
+        //
+    }
+
     public function update(Request $request, $id)
     {
+        // dd($id);
 
-        $comment = Comment::where('id', $id)->firstOrFail();
+        // $comment = Comment::where('id', $id)->firstOrFail();
+        // dd($comment);
 
-        $comment->save();
-        return redirect()->route('books.show', $book_id);
+        // $book_id = $comment->book_id;
+
+        // $comment = $comment->content;
+
+        // dd($comment);
+
+        // $comment->save();
+        // return redirect()->route('books.show', $book_id);
+
     }
 
 
     public function destroy($id)
     {
         //
+    }
+
+    public function editComment(CommentRequest $request)
+    {
+        dd($request->all());
+
+        $comment = Comment::where('id', $id)->firstOrFail();
+        dd($comment);
+
+        $book_id = $comment->book_id;
+
+        $comment = $comment->content;
+
+        dd($comment);
+
+        $comment->save();
+        return redirect()->route('books.show', $book_id);
+
     }
 }

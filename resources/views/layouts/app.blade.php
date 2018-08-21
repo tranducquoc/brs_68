@@ -11,12 +11,11 @@
     <title> @lang('home.laravel') </title>
 
     <!-- Scripts -->
-    {{ Html::script('js/app.js') }}
-    {{ Html::script('js/logout.js') }}
+    {{ Html::script(asset('js/app.js')) }}
 
 
     <!-- Fonts -->
-    {{ Html::style('css/app.css') }}
+    {{ Html::style(asset('css/app.css')) }}
 
 
 </head>

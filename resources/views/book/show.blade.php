@@ -32,7 +32,7 @@
                 <img class="img-fluid rounded" src="{{ $book->image }}" alt="">
                 <hr>
                 <p>@lang('book.author'): {{ $book->author }}</p>
-                <p>@lang('book.description'): {{$book->description}}</p>
+                <p>@lang('book.description'): {{ $book->description }}</p>
 
             </div>
 
@@ -45,12 +45,46 @@
                             <p>{{ $comment->content }}</p>
                             <span><small>{{ $comment->created_at }}</small></span>
 
+                            @if ($comment->user_id == Auth::user()->id)
 
-                            @if (Auth::check())
-                                <button class="btn btn-warning" data-toggle="modal" data-target="#editModal" onclick="fun_edit('{{$comment->id}}')"> @lang('comment.edit') </button>
+
+                                <button class="btn btn-warning" data-toggle="modal" data-target="#editModal-{{$comment->id}}" data-target-id="{{$comment->id}}"> @lang('comment.edit') </button>
+
+                                <div class="modal fade" id="editModal-{{$comment->id}}" role="dialog">
+                                    <div class="modal-dialog">
+
+                                    <!-- Modal content-->
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                            </div>
+                                            <div class="modal-body">
+                                                @if (Auth::check())
+                                                    <div class="container">
+
+                                                        {!! Form::open(['route' => ['ajax.comment', 'id' => $comment->id], 'class' => 'form-comment-book']) !!}
+
+                                                            <div class="form-group">
+                                                                <label for="edit_comment"> @lang('comment.title_input')</label>
+                                                                {!! Form::text('edit_comment', $comment->content, ['class' => 'form-control edit_comment', 'placeholder' => trans('comment.push_comment')]) !!}
+                                                            </div>
+                                                            {{ Form::hidden('edit_id', $comment->id, ['class' => 'comment-id']) }}
+                                                            {{ Form::button(trans('comment.submit'), [
+                                                                'class' => 'editEvent',
+                                                                'data-url' => route('ajax.comment'),
+                                                                ]) }}
+                                                        {!! Form::close() !!}
+
+                                                    </div>
+                                                @endif
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
 
                             @endif
-
 
                         </div>
 
@@ -72,42 +106,6 @@
                     </div>
                 @endif
             </div>
-
-            <div class="modal fade" id="editModal" role="dialog">
-                <div class="modal-dialog">
-
-                <!-- Modal content-->
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                <h4 class="modal-title"> @lang('comment.edit')</h4>
-                        </div>
-                        <div class="modal-body">
-                            @if (Auth::check())
-                                <div class="container">
-
-                                    {!! Form::model($comment, ['method' => 'PATCH', 'route' => ['comments.update', $comment->id]]) !!}
-
-                                        <div class="form-group">
-                                            <label for="edit_comment"> @lang('comment.title_input')</label>
-                                            {!! Form::text('edit_comment', null, ['class' => 'form-control', 'placeholder' => trans('comment.push_comment'), 'id' => 'edit_comment']) !!}
-                                        </div>
-                                        {{ Form::hidden('edit_id') }}
-                                        {{ Form::submit(trans('comment.submit'), ['class' => 'btn btn-default']) }}
-                                    {!! Form::close() !!}
-
-                                </div>
-                            @endif
-
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
         </div>
     </div>
 @endsection

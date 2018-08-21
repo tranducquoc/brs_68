@@ -1,14 +1,27 @@
-function fun_edit($id)
-{
-    var view_url = $("#hidden_view").val();
-    $.ajax({
-        url: view_url,
-        type: "GET",
-        data: {"id": $id},
-        success: function(result){
+$(document).ready(function() {
+    $('.editEvent').on('click', function () {
+        $(this).parents('.form-comment-book').addClass('current');
 
-            $("#edit_id").val(result.id);
-            $("#edit_comment").val(result.comment);
-        }
+        var id = $('.current').find('.comment-id').val();
+        var comment_content = $('.current').find('.edit_comment').val();
+
+        $.ajax({
+            url: $(this).attr('data-url'),
+            type: 'POST',
+            dataType: 'json',
+            data: {
+                id: id,
+                content: comment_content,
+            },
+
+            success: function(data) {
+                $('.current').find('.comment-id').val(data.id);
+                $('.current').find('.edit_comment').val(data.content);
+                alert(data.id);
+            },
+         });
+
+        $(this).parents('.form-comment-book').removeClass('current');
+
     });
-}
+});
