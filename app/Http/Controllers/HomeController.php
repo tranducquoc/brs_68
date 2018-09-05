@@ -28,4 +28,17 @@ class HomeController extends Controller
 
         return view('home', compact('books'));
     }
+
+    public function searchBook(Request $request)
+    {
+        $request = \Request::get('search');
+
+        if ($request) {
+            $books = Book::where('title','like','%'.$request.'%')->orderBy('title')->paginate(config('setting.paginate'));
+        } else {
+            $books = Book::get();
+        }
+
+        return view('home', compact('books'));
+    }
 }
