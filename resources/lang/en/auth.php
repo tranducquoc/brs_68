@@ -25,5 +25,6 @@ return [
     'forgot_password' => 'Forgot Your Password?',
     'register' => 'Register',
     'name' => 'Name',
-    'logout' => 'Logout'
+    'logout' => 'Logout',
+    'request_book' => "Request Book",
 ];

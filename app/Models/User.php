@@ -32,9 +32,9 @@ class User extends Authenticatable
         return $this->hasMany(Comment::class);
     }
 
-    public function requests()
+    public function requestbooks()
     {
-        return $this->hasMany(Request::class);
+        return $this->hasMany(Requestbook::class);
     }
 
     public function marks()

@@ -54,6 +54,8 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    <a class="nav-link" href="{{ route('requests.index') }}"> @lang('auth.request_book') </a>
+
                                     <a class="dropdown-item" action="{{ route('logout') }}" id="logoutEvent">
                                         @lang('auth.logout')
                                     </a>
