@@ -22,3 +22,8 @@ Route::resource('books', 'BookController');
 Route::resource('comments', 'CommentController');
 Route::get('/search', 'HomeController@searchBook')->name('search');
 Route::resource('requests', 'RequestbookController');
+
+Route::namespace('Admin')->group(function() {
+  Route::get('/admin', 'StaticPageController@index')->middleware('is_admin')->name('admin');
+  Route::resource('requestbooks', 'RequestbookController');
+});
