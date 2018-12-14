@@ -16,3 +16,6 @@ class Category extends Model
         return $this->hasMany(Book::class);
     }
 }
+
+quoc dep trai. hix. dep trai chu bo
+ahahaha
